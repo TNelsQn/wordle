@@ -1,70 +1,97 @@
-# Getting Started with Create React App
+# Wordle
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A small Wordle clone built with React and TypeScript.
 
-## Available Scripts
+The app picks a random five-letter target word, lets the player make up to six guesses, validates guesses against the bundled word list, and colours each submitted row using Wordle-style feedback:
 
-In the project directory, you can run:
+- Green: correct letter in the correct position
+- Yellow: correct letter in the wrong position
+- Grey: letter is not available in the target word
 
-### `npm start`
+The row evaluator handles duplicate letters by first marking exact matches, then only marking misplaced letters while there are unmatched copies left in the target word.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Tech Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- React
+- TypeScript
+- CSS Modules
+- Create React App
+- Jest and React Testing Library
 
-### `npm test`
+## Running Locally
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Install dependencies:
 
-### `npm run build`
+```bash
+npm install
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Start the development server:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### `npm run eject`
+## Useful Scripts
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+npm test
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Runs the test suite in watch mode.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+npm test -- --watchAll=false
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Runs the test suite once.
 
-## Learn More
+```bash
+npm run build
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Creates a production build in the `build` directory.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+npm run format
+```
 
-### Code Splitting
+Formats source files with Prettier.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Project Structure
 
-### Analyzing the Bundle Size
+```text
+src/
+  App.tsx
+  words.js
+  components/
+    Cell/
+    Container/
+    Grid/
+    Row/
+      utils/
+        evaluateRow.ts
+        evaluateRow.test.ts
+  hooks/
+    useKeyPress.ts
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Key files:
 
-### Making a Progressive Web App
+- `src/App.tsx` owns the game state, target word, win/loss checks, and reset flow.
+- `src/hooks/useKeyPress.ts` handles keyboard input for letters, backspace, and enter.
+- `src/components/Grid/Grid.tsx` renders the six guess rows.
+- `src/components/Row/utils/evaluateRow.ts` contains the Wordle feedback logic.
+- `src/words.js` contains the accepted uppercase five-letter word list.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Tests
 
-### Advanced Configuration
+The evaluator tests cover the most important game-logic cases:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- correct, present, and absent letters
+- duplicate letters
+- letters already consumed by correct matches
+- pending current and unsubmitted rows
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
