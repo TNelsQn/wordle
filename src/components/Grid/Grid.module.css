@@ -1,0 +1,9 @@
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: start;
+  width: min(100%, 260px);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  padding: 1rem;
+}

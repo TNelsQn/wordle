@@ -1,0 +1,29 @@
+.cell {
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  width: 1rem;
+  height: 1rem;
+}
+
+.correct {
+  background-color: green;
+  color: white;
+}
+
+.present {
+  background-color: yellow;
+  color: black;
+}
+
+.absent {
+  background-color: gray;
+  color: white;
+}
+
+.pending {
+  background-color: transparent;
+  color: white;
+}
